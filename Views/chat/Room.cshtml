@@ -1,0 +1,1536 @@
+﻿@model CyberChatDemo.Models.ChatRoomViewModel
+
+@{
+    Layout = null;
+
+    string initial =
+        string.IsNullOrWhiteSpace(Model.OtherDisplayName)
+            ? "?"
+            : Model.OtherDisplayName.Substring(0, 1).ToUpper();
+}
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8" />
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0" />
+
+    <title>
+        @Model.OtherDisplayName | SuperEncryption
+    </title>
+
+
+    <link rel="stylesheet"
+          href="~/css/chat-room.css"
+          asp-append-version="true" />
+
+</head>
+
+
+<body>
+
+    <div class="chat-page">
+
+
+        <!-- ===================================================== -->
+        <!-- HEADER -->
+        <!-- ===================================================== -->
+
+        <header class="chat-header">
+
+
+            <div class="header-left">
+
+
+                <a asp-controller="Chat"
+                   asp-action="Index"
+                   class="back-button"
+                   aria-label="Back to messages">
+
+                    <svg viewBox="0 0 24 24">
+
+                        <path d="m15 18-6-6 6-6" />
+
+                    </svg>
+
+                </a>
+
+
+                <div class="header-avatar">
+
+                    @initial
+
+
+                    @if (Model.OtherIsOnline)
+                    {
+                        <span class="online-dot">
+                        </span>
+                    }
+
+                </div>
+
+
+                <div class="header-user">
+
+                    <div class="header-name-line">
+
+                        <strong>
+                            @Model.OtherDisplayName
+                        </strong>
+
+
+                        <span class="account-check">
+
+                            <svg viewBox="0 0 24 24">
+
+                                <path d="M12 3 4.5 6.3v5.1c0 4.7 3 7.8 7.5 9.6 4.5-1.8 7.5-4.9 7.5-9.6V6.3L12 3Z" />
+
+                                <path d="m9 12 2 2 4-4" />
+
+                            </svg>
+
+                        </span>
+
+                    </div>
+
+
+                    <span id="userStatus"
+                          class="user-status"
+                          aria-live="polite">
+
+                        @Model.OtherPresenceText
+
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="header-right">
+
+                <div class="protected-session">
+
+                    <svg viewBox="0 0 24 24">
+
+                        <rect x="5"
+                              y="10"
+                              width="14"
+                              height="10"
+                              rx="2">
+                        </rect>
+
+                        <path d="M8 10V7a4 4 0 0 1 8 0v3" />
+
+                    </svg>
+
+                    Protected session
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- ===================================================== -->
+        <!-- MESSAGES -->
+        <!-- ===================================================== -->
+
+        <main class="messages-container"
+              id="messagesContainer">
+
+
+            <!-- ================================================= -->
+            <!-- PROFILE -->
+            <!-- ================================================= -->
+
+            <section class="conversation-start">
+
+
+                <div class="profile-frame">
+
+                    <div class="large-avatar">
+                        @initial
+                    </div>
+
+                </div>
+
+
+                <strong>
+                    @Model.OtherDisplayName
+                </strong>
+
+
+                <span>
+                    @($"@{Model.OtherInstagramId}")
+                </span>
+
+
+                <div class="private-connection">
+
+                    <svg viewBox="0 0 24 24">
+
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z" />
+
+                        <path d="m9 12 2 2 4-4" />
+
+                    </svg>
+
+                    Private connection
+
+                </div>
+
+            </section>
+
+
+
+            <!-- ================================================= -->
+            <!-- EXISTING MESSAGES -->
+            <!-- ================================================= -->
+            @foreach (var message in Model.Messages)
+            {
+                <div class="message-row @(message.IsMine ? "mine" : "theirs")"
+                     data-message-id="@message.Id"
+                     data-seen="@message.Seen.ToString().ToLowerInvariant()">
+
+                    <div class="message-content">
+
+
+                        <div class="message-bubble">
+
+                            @message.Text
+
+                        </div>
+
+
+                        <div class="message-footer">
+
+                            <span class="message-time">
+
+                                @(message.SentAt.ToLocalTime().ToString("h:mm tt"))
+
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            }
+
+
+        </main>
+
+
+
+        <!-- ===================================================== -->
+        <!-- COMPOSER -->
+        <!-- ===================================================== -->
+
+        <footer class="composer-area">
+
+            <div class="composer-wrapper">
+
+
+                <form id="messageForm"
+                      class="message-composer">
+
+
+                    @Html.AntiForgeryToken()
+
+
+                    <input type="hidden"
+                           id="conversationId"
+                           value="@Model.ConversationId" />
+
+
+                    <div class="composer-icon">
+
+                        <svg viewBox="0 0 24 24">
+
+                            <path d="M4 5h16v12H8l-4 3Z" />
+
+                        </svg>
+
+                    </div>
+
+
+                    <textarea id="messageInput"
+                              rows="1"
+                              maxlength="2000"
+                              placeholder="Type a message..."
+                              autocomplete="off"
+                              aria-label="Message"></textarea>
+
+
+                    <button type="submit"
+                            id="sendButton"
+                            class="send-button"
+                            disabled>
+
+                        <span>
+                            Send
+                        </span>
+
+
+                        <svg viewBox="0 0 24 24">
+
+                            <path d="M22 2 9.5 14.5" />
+
+                            <path d="m22 2-8 20-4.5-7.5L2 10l20-8Z" />
+
+                        </svg>
+
+                    </button>
+
+                </form>
+
+
+                <div class="composer-security">
+
+                    <svg viewBox="0 0 24 24">
+
+                        <path d="M12 3 4.5 6.3v5.1c0 4.7 3 7.8 7.5 9.6 4.5-1.8 7.5-4.9 7.5-9.6V6.3L12 3Z" />
+
+                    </svg>
+
+                    Secure messaging session
+
+                </div>
+
+            </div>
+
+        </footer>
+
+    </div>
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/8.0.7/signalr.min.js"></script>
+
+
+    <script>
+
+        // =========================================================
+        // VALUES
+        // =========================================================
+
+        const conversationId =
+            document.getElementById(
+                "conversationId"
+            ).value;
+
+
+        const currentUserId =
+            "@Model.CurrentUserId";
+
+
+        const otherUserId =
+            "@Model.OtherUserId";
+
+
+        const form =
+            document.getElementById(
+                "messageForm"
+            );
+
+
+        const messageInput =
+            document.getElementById(
+                "messageInput"
+            );
+
+
+        const sendButton =
+            document.getElementById(
+                "sendButton"
+            );
+
+
+        const messagesContainer =
+            document.getElementById(
+                "messagesContainer"
+            );
+
+
+        const userStatus =
+            document.getElementById(
+                "userStatus"
+            );
+
+
+
+        // =========================================================
+        // TYPING STATE
+        // =========================================================
+
+        let typingTimeout =
+            null;
+
+
+        let sentTypingState =
+            false;
+
+
+        let otherUserIsTyping =
+            false;
+
+
+        let lastPresenceText =
+            @Html.Raw(
+                System.Text.Json.JsonSerializer.Serialize(
+                        Model.OtherPresenceText
+                )
+                        );
+
+
+
+        // =========================================================
+        // SCROLL
+        // =========================================================
+
+        function scrollToBottom(
+            smooth = false
+        ) {
+
+            messagesContainer.scrollTo(
+                {
+                    top:
+                        messagesContainer.scrollHeight,
+
+                    behavior:
+                        smooth
+                            ? "smooth"
+                            : "auto"
+                }
+            );
+        }
+
+
+        requestAnimationFrame(
+            function () {
+
+                scrollToBottom(
+                    false
+                );
+
+            }
+        );
+
+
+
+        // =========================================================
+        // COMPOSER
+        // =========================================================
+
+        function updateComposer() {
+
+            const hasText =
+                messageInput
+                    .value
+                    .trim()
+                    .length > 0;
+
+
+            sendButton.disabled =
+                !hasText;
+
+
+            messageInput.style.height =
+                "auto";
+
+
+            messageInput.style.height =
+                Math.min(
+                    messageInput.scrollHeight,
+                    120
+                )
+                +
+                "px";
+
+
+            if (hasText) {
+
+                form.classList.add(
+                    "has-text"
+                );
+
+            }
+            else {
+
+                form.classList.remove(
+                    "has-text"
+                );
+            }
+        }
+
+
+
+        // =========================================================
+        // SIGNALR
+        // =========================================================
+
+        const connection =
+            new signalR
+                .HubConnectionBuilder()
+                .withUrl("/chatHub")
+                .withAutomaticReconnect()
+                .build();
+
+
+
+        // =========================================================
+        // SEND TYPING
+        // =========================================================
+
+        async function sendTypingState(
+            isTyping
+        ) {
+
+            if (
+                connection.state
+                !==
+                signalR.HubConnectionState.Connected
+            ) {
+
+                return;
+            }
+
+
+            if (
+                sentTypingState
+                ===
+                isTyping
+            ) {
+
+                return;
+            }
+
+
+            sentTypingState =
+                isTyping;
+
+
+            try {
+
+                await connection.invoke(
+                    "SetTyping",
+                    conversationId,
+                    isTyping
+                );
+
+            }
+            catch (error) {
+
+                console.error(
+                    "Typing status error:",
+                    error
+                );
+            }
+        }
+
+
+
+        // =========================================================
+        // INPUT
+        // =========================================================
+
+        function handleTyping() {
+
+            updateComposer();
+
+
+            const hasText =
+                messageInput
+                    .value
+                    .trim()
+                    .length > 0;
+
+
+            if (!hasText) {
+
+                clearTimeout(
+                    typingTimeout
+                );
+
+
+                sendTypingState(
+                    false
+                );
+
+
+                return;
+            }
+
+
+            sendTypingState(
+                true
+            );
+
+
+            clearTimeout(
+                typingTimeout
+            );
+
+
+            typingTimeout =
+                setTimeout(
+                    function () {
+
+                        sendTypingState(
+                            false
+                        );
+
+                    },
+                    1200
+                );
+        }
+
+
+        messageInput.addEventListener(
+            "input",
+            handleTyping
+        );
+
+
+
+        messageInput.addEventListener(
+            "blur",
+            function () {
+
+                clearTimeout(
+                    typingTimeout
+                );
+
+
+                sendTypingState(
+                    false
+                );
+            }
+        );
+
+
+
+        // =========================================================
+        // ENTER SEND
+        // =========================================================
+
+        messageInput.addEventListener(
+            "keydown",
+            function (event) {
+
+                if (
+                    event.key === "Enter"
+                    &&
+                    !event.shiftKey
+                ) {
+
+                    event.preventDefault();
+
+
+                    if (
+                        messageInput
+                            .value
+                            .trim()
+                            .length > 0
+                    ) {
+
+                        form.requestSubmit();
+                    }
+                }
+
+            }
+        );
+
+
+
+        // =========================================================
+        // SENT / SEEN
+        // =========================================================
+
+        function refreshDeliveryStatus() {
+
+            const oldStatuses =
+                document.querySelectorAll(
+                    ".delivery-status"
+                );
+
+
+            oldStatuses.forEach(
+                function (element) {
+
+                    element.remove();
+
+                }
+            );
+
+
+            const myMessages =
+                document.querySelectorAll(
+                    ".message-row.mine"
+                );
+
+
+            if (
+                myMessages.length === 0
+            ) {
+
+                return;
+            }
+
+
+            const latestMine =
+                myMessages[
+                    myMessages.length - 1
+                ];
+
+
+            const footer =
+                latestMine.querySelector(
+                    ".message-footer"
+                );
+
+
+            if (!footer) {
+
+                return;
+            }
+
+
+            const status =
+                document.createElement(
+                    "span"
+                );
+
+
+            status.className =
+                "delivery-status";
+
+
+            const seen =
+                latestMine.dataset.seen
+                ===
+                "true";
+
+
+            status.textContent =
+                seen
+                    ? "Seen"
+                    : "Sent";
+
+
+            if (seen) {
+
+                status.classList.add(
+                    "seen-status"
+                );
+            }
+
+
+            footer.appendChild(
+                status
+            );
+        }
+
+
+        refreshDeliveryStatus();
+
+
+
+        // =========================================================
+        // APPEND MESSAGE
+        // =========================================================
+
+        function appendMessage(
+            message
+        ) {
+
+            if (
+                document.querySelector(
+                    `[data-message-id="${message.id}"]`
+                )
+            ) {
+
+                return;
+            }
+
+
+            const isMine =
+                message.senderId
+                ===
+                currentUserId;
+
+
+            const row =
+                document.createElement(
+                    "div"
+                );
+
+
+            row.className =
+                "message-row "
+                +
+                (
+                    isMine
+                        ? "mine"
+                        : "theirs"
+                );
+
+
+            row.dataset.messageId =
+                message.id;
+
+
+            row.dataset.seen =
+                message.seen
+                    ? "true"
+                    : "false";
+
+
+            const content =
+                document.createElement(
+                    "div"
+                );
+
+
+            content.className =
+                "message-content";
+
+
+            const bubble =
+                document.createElement(
+                    "div"
+                );
+
+
+            bubble.className =
+                "message-bubble";
+
+
+            bubble.textContent =
+                message.text;
+
+
+            const footer =
+                document.createElement(
+                    "div"
+                );
+
+
+            footer.className =
+                "message-footer";
+
+
+            const time =
+                document.createElement(
+                    "span"
+                );
+
+
+            time.className =
+                "message-time";
+
+
+            const date =
+                new Date(
+                    message.sentAt
+                );
+
+
+            time.textContent =
+                date.toLocaleTimeString(
+                    [],
+                    {
+                        hour:
+                            "numeric",
+
+                        minute:
+                            "2-digit"
+                    }
+                );
+
+
+            footer.appendChild(
+                time
+            );
+
+
+            content.appendChild(
+                bubble
+            );
+
+
+            content.appendChild(
+                footer
+            );
+
+
+            row.appendChild(
+                content
+            );
+
+
+            messagesContainer.appendChild(
+                row
+            );
+
+
+            refreshDeliveryStatus();
+
+
+            scrollToBottom(
+                true
+            );
+
+
+            if (
+                !isMine
+                &&
+                document.visibilityState
+                ===
+                "visible"
+                &&
+                connection.state
+                ===
+                signalR.HubConnectionState.Connected
+            ) {
+
+                connection
+                    .invoke(
+                        "MarkSeen",
+                        conversationId,
+                        message.id
+                    )
+                    .catch(
+                        function (error) {
+
+                            console.error(
+                                "MarkSeen error:",
+                                error
+                            );
+
+                        }
+                    );
+            }
+        }
+
+
+
+        // =========================================================
+        // RECEIVE MESSAGE
+        // =========================================================
+
+        connection.on(
+            "ReceiveMessage",
+            function (message) {
+
+                if (
+                    message.senderId
+                    ===
+                    otherUserId
+                ) {
+
+                    otherUserIsTyping =
+                        false;
+
+
+                    if (userStatus) {
+
+                        userStatus.classList.remove(
+                            "typing-status"
+                        );
+
+
+                        userStatus.textContent =
+                            lastPresenceText;
+                    }
+                }
+
+
+                appendMessage(
+                    message
+                );
+
+            }
+        );
+
+
+
+        // =========================================================
+        // TYPING
+        // =========================================================
+
+        connection.on(
+            "TypingChanged",
+            function (data) {
+
+                if (
+                    data.userId
+                    !==
+                    otherUserId
+                ) {
+
+                    return;
+                }
+
+
+                otherUserIsTyping =
+                    data.isTyping;
+
+
+                if (!userStatus) {
+
+                    return;
+                }
+
+
+                if (
+                    otherUserIsTyping
+                ) {
+
+                    userStatus.textContent =
+                        "Typing...";
+
+
+                    userStatus.classList.add(
+                        "typing-status"
+                    );
+
+                }
+                else {
+
+                    userStatus.textContent =
+                        lastPresenceText;
+
+
+                    userStatus.classList.remove(
+                        "typing-status"
+                    );
+                }
+
+            }
+        );
+
+
+
+        // =========================================================
+        // SEEN EVENT
+        // =========================================================
+
+        connection.on(
+            "MessageSeen",
+            function (data) {
+
+                const row =
+                    document.querySelector(
+                        `[data-message-id="${data.messageId}"]`
+                    );
+
+
+                if (!row) {
+
+                    return;
+                }
+
+
+                row.dataset.seen =
+                    "true";
+
+
+                refreshDeliveryStatus();
+
+            }
+        );
+
+
+
+        // =========================================================
+        // MARK CONVERSATION SEEN
+        // =========================================================
+
+        async function markConversationSeen() {
+
+            if (
+                connection.state
+                !==
+                signalR.HubConnectionState.Connected
+            ) {
+
+                return;
+            }
+
+
+            if (
+                document.visibilityState
+                !==
+                "visible"
+            ) {
+
+                return;
+            }
+
+
+            try {
+
+                await connection.invoke(
+                    "MarkConversationSeen",
+                    conversationId
+                );
+
+            }
+            catch (error) {
+
+                console.error(
+                    "Mark conversation seen error:",
+                    error
+                );
+            }
+        }
+
+
+
+        // =========================================================
+        // CONNECT
+        // =========================================================
+
+        async function startSignalR() {
+
+            try {
+
+                await connection.start();
+
+
+                await connection.invoke(
+                    "JoinConversation",
+                    conversationId
+                );
+
+
+                await markConversationSeen();
+
+            }
+            catch (error) {
+
+                console.error(
+                    "SignalR connection error:",
+                    error
+                );
+
+
+                setTimeout(
+                    startSignalR,
+                    3000
+                );
+            }
+        }
+
+
+        startSignalR();
+
+
+
+        // =========================================================
+        // RECONNECT
+        // =========================================================
+
+        connection.onreconnected(
+            async function () {
+
+                try {
+
+                    sentTypingState =
+                        false;
+
+
+                    await connection.invoke(
+                        "JoinConversation",
+                        conversationId
+                    );
+
+
+                    await markConversationSeen();
+
+                }
+                catch (error) {
+
+                    console.error(
+                        "SignalR reconnect error:",
+                        error
+                    );
+                }
+
+            }
+        );
+
+
+
+        // =========================================================
+        // HEARTBEAT
+        // =========================================================
+
+        async function sendHeartbeat() {
+
+            if (
+                document.visibilityState
+                !==
+                "visible"
+            ) {
+
+                return;
+            }
+
+
+            const tokenInput =
+                form.querySelector(
+                    'input[name="__RequestVerificationToken"]'
+                );
+
+
+            if (!tokenInput) {
+
+                return;
+            }
+
+
+            try {
+
+                await fetch(
+                    "/Chat/Heartbeat",
+                    {
+                        method:
+                            "POST",
+
+                        headers:
+                        {
+                            "Content-Type":
+                                "application/x-www-form-urlencoded"
+                        },
+
+                        body:
+                            "__RequestVerificationToken="
+                            +
+                            encodeURIComponent(
+                                tokenInput.value
+                            )
+                    }
+                );
+
+            }
+            catch (error) {
+
+                console.error(
+                    "Heartbeat error:",
+                    error
+                );
+            }
+        }
+
+
+        sendHeartbeat();
+
+
+        setInterval(
+            sendHeartbeat,
+            25000
+        );
+
+
+
+        // =========================================================
+        // PRESENCE
+        // =========================================================
+
+        async function refreshOtherPresence() {
+
+            try {
+
+                const response =
+                    await fetch(
+                        "/Chat/Presence?userId="
+                        +
+                        encodeURIComponent(
+                            otherUserId
+                        ),
+                        {
+                            cache:
+                                "no-store"
+                        }
+                    );
+
+
+                if (!response.ok) {
+
+                    return;
+                }
+
+
+                const data =
+                    await response.json();
+
+
+                lastPresenceText =
+                    data.presenceText;
+
+
+                if (
+                    userStatus
+                    &&
+                    !otherUserIsTyping
+                ) {
+
+                    userStatus.textContent =
+                        lastPresenceText;
+
+
+                    userStatus.classList.remove(
+                        "typing-status"
+                    );
+                }
+
+
+                const avatar =
+                    document.querySelector(
+                        ".header-avatar"
+                    );
+
+
+                if (!avatar) {
+
+                    return;
+                }
+
+
+                let onlineDot =
+                    avatar.querySelector(
+                        ".online-dot"
+                    );
+
+
+                if (
+                    data.isOnline
+                ) {
+
+                    if (!onlineDot) {
+
+                        onlineDot =
+                            document.createElement(
+                                "span"
+                            );
+
+
+                        onlineDot.className =
+                            "online-dot";
+
+
+                        avatar.appendChild(
+                            onlineDot
+                        );
+                    }
+
+                }
+                else {
+
+                    if (onlineDot) {
+
+                        onlineDot.remove();
+                    }
+                }
+
+            }
+            catch (error) {
+
+                console.error(
+                    "Presence error:",
+                    error
+                );
+            }
+        }
+
+
+        refreshOtherPresence();
+
+
+        setInterval(
+            refreshOtherPresence,
+            20000
+        );
+
+
+
+        // =========================================================
+        // VISIBILITY
+        // =========================================================
+
+        document.addEventListener(
+            "visibilitychange",
+            function () {
+
+                if (
+                    document.visibilityState
+                    ===
+                    "visible"
+                ) {
+
+                    sendHeartbeat();
+
+                    refreshOtherPresence();
+
+                    markConversationSeen();
+
+                }
+                else {
+
+                    clearTimeout(
+                        typingTimeout
+                    );
+
+
+                    sendTypingState(
+                        false
+                    );
+                }
+
+            }
+        );
+
+
+
+        // =========================================================
+        // SEND
+        // =========================================================
+
+        form.addEventListener(
+            "submit",
+            async function (event) {
+
+                event.preventDefault();
+
+
+                const text =
+                    messageInput
+                        .value
+                        .trim();
+
+
+                if (!text) {
+
+                    return;
+                }
+
+
+                clearTimeout(
+                    typingTimeout
+                );
+
+
+                await sendTypingState(
+                    false
+                );
+
+
+                sendButton.disabled =
+                    true;
+
+
+                const token =
+                    form.querySelector(
+                        'input[name="__RequestVerificationToken"]'
+                    ).value;
+
+
+                const body =
+                    new URLSearchParams();
+
+
+                body.append(
+                    "conversationId",
+                    conversationId
+                );
+
+
+                body.append(
+                    "message",
+                    text
+                );
+
+
+                body.append(
+                    "__RequestVerificationToken",
+                    token
+                );
+
+
+                try {
+
+                    const response =
+                        await fetch(
+                            "/Chat/SendMessage",
+                            {
+                                method:
+                                    "POST",
+
+                                headers:
+                                {
+                                    "Content-Type":
+                                        "application/x-www-form-urlencoded"
+                                },
+
+                                body:
+                                    body.toString()
+                            }
+                        );
+
+
+                    if (!response.ok) {
+
+                        console.error(
+                            "Message could not be sent."
+                        );
+
+
+                        sendButton.disabled =
+                            false;
+
+
+                        return;
+                    }
+
+
+                    messageInput.value =
+                        "";
+
+
+                    updateComposer();
+
+
+                    messageInput.focus();
+
+                }
+                catch (error) {
+
+                    console.error(
+                        "Send error:",
+                        error
+                    );
+
+
+                    sendButton.disabled =
+                        false;
+                }
+
+            }
+        );
+
+    </script>
+
+
+</body>
+
+</html>

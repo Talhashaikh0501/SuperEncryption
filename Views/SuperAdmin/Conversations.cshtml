@@ -1,0 +1,166 @@
+﻿@model CyberChatDemo.Models.SuperAdminConversationsViewModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8" />
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0" />
+
+    <title>Conversations - SuperAdmin</title>
+
+    <link rel="stylesheet"
+          href="~/css/superadmin.css"
+          asp-append-version="true" />
+
+</head>
+
+
+<body>
+
+    <div class="admin-page">
+
+
+        <header class="admin-header">
+
+            <div>
+
+                <a asp-controller="SuperAdmin"
+                   asp-action="Index"
+                   class="back-link">
+
+                    ← Users
+
+                </a>
+
+
+                <h1>
+                    @Model.SelectedDisplayName
+                </h1>
+
+                <span class="header-username">
+                    @($"@{Model.SelectedInstagramId}")
+                </span>
+
+            </div>
+
+        </header>
+
+
+        <main class="admin-content">
+
+            <div class="page-heading">
+
+                <div>
+
+                    <h2>
+                        Conversations
+                    </h2>
+
+                    <p>
+                        Select a conversation to inspect
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            @if (Model.Conversations.Count == 0)
+            {
+                <div class="admin-empty">
+
+                    This user has no conversations yet.
+
+                </div>
+            }
+            else
+            {
+                <div class="conversation-list">
+
+                    @foreach (var conversation
+                                    in Model.Conversations)
+                    {
+                        <a asp-controller="SuperAdmin"
+                           asp-action="Messages"
+                           asp-route-conversationId="@conversation.ConversationId"
+                           class="conversation-card">
+
+                            <div class="admin-avatar">
+
+                                @{
+                                    string initial =
+                                    string.IsNullOrWhiteSpace(
+                                    conversation.OtherDisplayName)
+
+                                    ? "?"
+
+                                    : conversation.OtherDisplayName
+                                    .Substring(0, 1)
+                                    .ToUpper();
+                                }
+
+                                @initial
+
+                            </div>
+
+
+                            <div class="conversation-info">
+
+                                <strong>
+                                    @conversation.OtherDisplayName
+                                </strong>
+
+                                <span>
+                                    @($"@{conversation.OtherInstagramId}")
+                                </span>
+
+
+                                @if (!string.IsNullOrWhiteSpace(
+                                                        conversation.LastMessage))
+                                {
+                                    <p>
+                                        @conversation.LastMessage
+                                    </p>
+                                }
+
+                            </div>
+
+
+                            <div class="conversation-meta">
+
+                                @if (conversation.UpdatedAt != null)
+                                {
+                                    <span>
+                                        @conversation.UpdatedAt.Value
+                                        .ToString("dd MMM, h:mm tt")
+                                    </span>
+                                }
+
+                                <strong>
+                                    View →
+                                </strong>
+
+                            </div>
+
+                        </a>
+                    }
+
+                </div>
+            }
+
+        </main>
+
+    </div>
+
+</body>
+
+</html>

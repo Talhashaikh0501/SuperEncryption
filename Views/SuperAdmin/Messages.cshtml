@@ -1,0 +1,142 @@
+﻿@model CyberChatDemo.Models.SuperAdminMessagesViewModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8" />
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0" />
+
+    <title>Conversation - SuperAdmin</title>
+
+    <link rel="stylesheet"
+          href="~/css/superadmin.css"
+          asp-append-version="true" />
+
+</head>
+
+
+<body>
+
+    <div class="admin-page">
+
+
+        <header class="admin-header">
+
+            <div>
+
+                <a asp-controller="SuperAdmin"
+                   asp-action="Index"
+                   class="back-link">
+
+                    ← Users
+
+                </a>
+
+
+                <h1>
+                    Conversation
+                </h1>
+
+            </div>
+
+        </header>
+
+
+        <main class="admin-content">
+
+
+            <div class="chat-participants">
+
+                <div>
+
+                    <strong>
+                        @Model.UserOneName
+                    </strong>
+
+                    <span>
+                        @($"@{Model.UserOneInstagramId}")
+                    </span>
+
+                </div>
+
+
+                <span class="between">
+                    ↔
+                </span>
+
+
+                <div>
+
+                    <strong>
+                        @Model.UserTwoName
+                    </strong>
+
+                    <span>
+                        @($"@{Model.UserTwoInstagramId}")
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="admin-chat">
+
+
+                @if (Model.Messages.Count == 0)
+                {
+                    <div class="admin-empty">
+
+                        No messages have been sent yet.
+
+                    </div>
+                }
+                else
+                {
+                    @foreach (var message
+                                    in Model.Messages)
+                    {
+                        <div class="admin-message">
+
+                            <div class="message-meta">
+
+                                <strong>
+                                    @message.SenderName
+                                </strong>
+
+                                <span>
+                                    @message.SentAt
+                                    .ToString("dd MMM yyyy • h:mm tt")
+                                </span>
+
+                            </div>
+
+
+                            <div class="admin-message-text">
+
+                                @message.Text
+
+                            </div>
+
+                        </div>
+                    }
+                }
+
+            </div>
+
+        </main>
+
+    </div>
+
+</body>
+
+</html>

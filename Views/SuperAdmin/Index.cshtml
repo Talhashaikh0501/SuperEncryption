@@ -1,0 +1,794 @@
+﻿@model CyberChatDemo.Models.SuperAdminIndexViewModel
+
+@{
+    Layout = null;
+
+    string searchQuery =
+        ViewBag.SearchQuery as string ?? "";
+
+    int totalUsers =
+        ViewBag.TotalUsers is int
+            ? (int)ViewBag.TotalUsers
+            : Model.Users.Count;
+}
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8" />
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0" />
+
+    <title>Users | SuperEncryption SuperAdmin</title>
+
+
+    <link rel="stylesheet"
+          href="~/css/superadmin.css"
+          asp-append-version="true" />
+
+
+    <style>
+
+        /* =========================================================
+           SEARCH
+           ========================================================= */
+
+        .admin-search-wrap {
+            margin: 22px 0 26px;
+        }
+
+        .admin-search {
+            width: 100%;
+            max-width: 620px;
+
+            display: flex;
+            align-items: center;
+
+            gap: 9px;
+
+            padding: 6px;
+
+            border: 1px solid #d8e6f5;
+
+            border-radius: 16px;
+
+            background: #ffffff;
+
+            box-shadow:
+                0 8px 25px rgba(31, 79, 132, .06);
+        }
+
+        .admin-search-icon {
+            flex: 0 0 38px;
+
+            width: 38px;
+            height: 38px;
+
+            display: grid;
+            place-items: center;
+
+            color: #6686a8;
+        }
+
+        .admin-search-icon svg {
+            width: 19px;
+            height: 19px;
+
+            fill: none;
+
+            stroke: currentColor;
+            stroke-width: 1.8;
+
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .admin-search input {
+            flex: 1;
+
+            min-width: 0;
+            height: 42px;
+
+            border: 0;
+            outline: 0;
+
+            background: transparent;
+
+            color: #183a5c;
+
+            font-size: 13px;
+        }
+
+        .admin-search input::placeholder {
+            color: #91a4b7;
+        }
+
+        .admin-search-button {
+            height: 40px;
+
+            padding: 0 18px;
+
+            border: 0;
+
+            border-radius: 11px;
+
+            background: #3277ca;
+
+            color: white;
+
+            font-size: 11px;
+            font-weight: 700;
+
+            cursor: pointer;
+        }
+
+        .clear-search {
+            height: 40px;
+
+            padding: 0 13px;
+
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+
+            border: 1px solid #dbe7f2;
+
+            border-radius: 11px;
+
+            background: #f7faff;
+
+            color: #66829e;
+
+            font-size: 10px;
+            font-weight: 700;
+
+            text-decoration: none;
+        }
+
+
+        /* =========================================================
+           MESSAGES
+           ========================================================= */
+
+        .admin-success,
+        .admin-error {
+            margin-bottom: 20px;
+
+            padding: 13px 15px;
+
+            border-radius: 12px;
+
+            font-size: 12px;
+        }
+
+        .admin-success {
+            border: 1px solid #ccebdd;
+
+            background: #f3fff8;
+
+            color: #177b50;
+        }
+
+        .admin-error {
+            border: 1px solid #f0cdcd;
+
+            background: #fff6f6;
+
+            color: #b83d3d;
+        }
+
+
+        /* =========================================================
+           TABLE UPDATE
+           ========================================================= */
+
+        .table-head,
+        .user-record {
+            grid-template-columns:
+                minmax(210px, 2fr)
+                minmax(140px, 1fr)
+                minmax(110px, .8fr)
+                minmax(95px, .65fr) !important;
+        }
+
+
+        /* =========================================================
+           ACTIONS
+           ========================================================= */
+
+        .account-actions {
+            display: flex;
+            align-items: center;
+
+            gap: 7px;
+        }
+
+        .delete-user-form {
+            margin: 0;
+        }
+
+        .delete-button {
+            min-height: 35px;
+
+            padding: 0 12px;
+
+            border: 1px solid #efcaca;
+
+            border-radius: 9px;
+
+            background: #fff6f6;
+
+            color: #c13c3c;
+
+            font-size: 9px;
+            font-weight: 750;
+
+            cursor: pointer;
+
+            transition:
+                background .17s ease,
+                border-color .17s ease,
+                transform .17s ease;
+        }
+
+        .delete-button:hover {
+            border-color: #eaa9a9;
+
+            background: #ffe9e9;
+        }
+
+        .delete-button:active {
+            transform: scale(.96);
+        }
+
+
+        /* =========================================================
+           RESULT LABEL
+           ========================================================= */
+
+        .search-result-note {
+            margin-top: 10px;
+
+            color: #748ca5;
+
+            font-size: 10px;
+        }
+
+        .search-result-note strong {
+            color: #315d8b;
+        }
+
+
+        /* =========================================================
+           MOBILE
+           ========================================================= */
+
+        @@media (max-width: 760px) {
+
+            .admin-search {
+                max-width: none;
+            }
+
+            .admin-search-button {
+                padding: 0 12px;
+            }
+
+            .table-head {
+                display: none !important;
+            }
+
+            .user-record {
+                display: flex !important;
+                flex-direction: column !important;
+
+                align-items: stretch !important;
+
+                gap: 15px !important;
+            }
+
+            .account-actions {
+                width: 100%;
+            }
+
+            .account-actions .view-button,
+            .delete-user-form,
+            .delete-button {
+                flex: 1;
+            }
+
+            .delete-button {
+                width: 100%;
+            }
+
+        }
+
+
+        @@media (max-width: 480px) {
+
+            .admin-search {
+                flex-wrap: wrap;
+            }
+
+            .admin-search input {
+                min-width: calc(100% - 55px);
+            }
+
+            .admin-search-button,
+            .clear-search {
+                flex: 1;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="admin-page">
+
+
+    <!-- =========================================================
+         HEADER
+         ========================================================= -->
+
+    <header class="admin-header">
+
+
+        <div>
+
+            <span class="eyebrow">
+                SUPERENCRYPTION
+            </span>
+
+
+            <h1>
+                SuperAdmin
+            </h1>
+
+        </div>
+
+
+        <form method="post"
+              asp-controller="SuperAdmin"
+              asp-action="Logout">
+
+            @Html.AntiForgeryToken()
+
+
+            <button type="submit"
+                    class="logout-btn">
+
+                Logout
+
+            </button>
+
+        </form>
+
+    </header>
+
+
+
+    <!-- =========================================================
+         CONTENT
+         ========================================================= -->
+
+    <main class="admin-content">
+
+
+        <div class="page-heading">
+
+
+            <div>
+
+                <h2>
+                    User Accounts
+                </h2>
+
+
+                <p>
+                    Manage registered SuperEncryption accounts
+                </p>
+
+            </div>
+
+
+            <span class="user-total">
+
+                @totalUsers users
+
+            </span>
+
+
+        </div>
+
+
+
+        <!-- =====================================================
+             SUCCESS / ERROR
+             ===================================================== -->
+
+        @if (TempData["AdminMessage"] != null)
+        {
+            <div class="admin-success">
+
+                @TempData["AdminMessage"]
+
+            </div>
+        }
+
+
+        @if (TempData["AdminError"] != null)
+        {
+            <div class="admin-error">
+
+                @TempData["AdminError"]
+
+            </div>
+        }
+
+
+
+        <!-- =====================================================
+             SEARCH
+             ===================================================== -->
+
+        <div class="admin-search-wrap">
+
+
+            <form method="get"
+                  asp-controller="SuperAdmin"
+                  asp-action="Index"
+                  class="admin-search">
+
+
+                <div class="admin-search-icon">
+
+                    <svg viewBox="0 0 24 24">
+
+                        <circle cx="11"
+                                cy="11"
+                                r="7">
+                        </circle>
+
+                        <path d="m20 20-4-4">
+                        </path>
+
+                    </svg>
+
+                </div>
+
+
+                <input type="text"
+                       name="search"
+                       value="@searchQuery"
+                       placeholder="Search by username..."
+                       autocomplete="off" />
+
+
+                <button type="submit"
+                        class="admin-search-button">
+
+                    Search
+
+                </button>
+
+
+                @if (!string.IsNullOrWhiteSpace(
+                        searchQuery))
+                {
+                    <a asp-controller="SuperAdmin"
+                       asp-action="Index"
+                       class="clear-search">
+
+                        Clear
+
+                    </a>
+                }
+
+
+            </form>
+
+
+            @if (!string.IsNullOrWhiteSpace(
+                    searchQuery))
+            {
+                <div class="search-result-note">
+
+                    Showing
+                    <strong>
+                        @Model.Users.Count
+                    </strong>
+
+                    result(s) for
+
+                    <strong>
+                        @searchQuery
+                    </strong>
+
+                </div>
+            }
+
+
+        </div>
+
+
+
+        <!-- =====================================================
+             PRIVILEGED ACCESS
+             ===================================================== -->
+
+        <div class="security-banner">
+
+            Privileged administrator access —
+            account credentials and communication records
+            are visible only within the SuperAdmin panel.
+
+        </div>
+
+
+
+        <!-- =====================================================
+             EMPTY
+             ===================================================== -->
+
+        @if (Model.Users.Count == 0)
+        {
+            <div class="admin-empty">
+
+
+                @if (!string.IsNullOrWhiteSpace(
+                        searchQuery))
+                {
+                    <text>
+
+                        No user found matching
+                        <strong>
+                            @searchQuery
+                        </strong>.
+
+                    </text>
+                }
+                else
+                {
+                    <text>
+                        No users have registered yet.
+                    </text>
+                }
+
+
+            </div>
+        }
+        else
+        {
+            <!-- =================================================
+                 USER TABLE
+                 ================================================= -->
+
+            <div class="users-table">
+
+
+                <div class="table-head">
+
+                    <span>
+                        User
+                    </span>
+
+                    <span>
+                        Password
+                    </span>
+
+                    <span>
+                        Conversations
+                    </span>
+
+                    <span>
+                        Account
+                    </span>
+
+                </div>
+
+
+
+                @foreach (var user in Model.Users)
+                {
+                    string initial =
+                        string.IsNullOrWhiteSpace(
+                            user.DisplayName)
+
+                        ? "?"
+
+                        : user.DisplayName
+                            .Substring(0, 1)
+                            .ToUpper();
+
+
+                    <div class="user-record">
+
+
+                        <!-- USER -->
+
+                        <div class="admin-user">
+
+
+                            <div class="admin-avatar">
+
+                                @initial
+
+                            </div>
+
+
+                            <div>
+
+                                <strong>
+                                    @user.DisplayName
+                                </strong>
+
+
+                                <span>
+                                    @($"@{user.InstagramId}")
+                                </span>
+
+                            </div>
+
+
+                        </div>
+
+
+
+                        <!-- PASSWORD -->
+
+                        <div class="password-value">
+
+                            @user.DemoPassword
+
+                        </div>
+
+
+
+                        <!-- CHAT -->
+
+                        <div>
+
+                            <a asp-controller="SuperAdmin"
+                               asp-action="Conversations"
+                               asp-route-userId="@user.Id"
+                               class="view-button">
+
+                                View chats
+
+                            </a>
+
+                        </div>
+
+
+
+                        <!-- DELETE -->
+
+                        <div class="account-actions">
+
+
+                            <form method="post"
+                                  asp-controller="SuperAdmin"
+                                  asp-action="DeleteUser"
+                                  asp-route-userId="@user.Id"
+                                  class="delete-user-form"
+                                  data-username="@user.InstagramId">
+
+
+                                @Html.AntiForgeryToken()
+
+
+                                <button type="submit"
+                                        class="delete-button">
+
+                                    Delete
+
+                                </button>
+
+
+                            </form>
+
+
+                        </div>
+
+
+                    </div>
+                }
+
+
+            </div>
+        }
+
+
+    </main>
+
+
+</div>
+
+
+
+<script>
+
+    // =============================================================
+    // DELETE CONFIRMATION
+    // =============================================================
+
+    const deleteForms =
+        document.querySelectorAll(
+            ".delete-user-form"
+        );
+
+
+    deleteForms.forEach(
+        function (form) {
+
+            form.addEventListener(
+                "submit",
+                function (event) {
+
+                    const username =
+                        form.dataset.username
+                        ||
+                        "this user";
+
+
+                    const confirmed =
+                        window.confirm(
+                            "Delete @@"
+                            +
+                            username
+                            +
+                            "?\n\n"
+                            +
+                            "This will permanently delete the account, "
+                            +
+                            "friendships, friend requests, conversations "
+                            +
+                            "and messages associated with this user."
+                        );
+
+
+                    if (!confirmed) {
+
+                        event.preventDefault();
+
+                        return;
+                    }
+
+
+                    const button =
+                        form.querySelector(
+                            ".delete-button"
+                        );
+
+
+                    if (button) {
+
+                        button.disabled =
+                            true;
+
+
+                        button.textContent =
+                            "Deleting...";
+                    }
+
+                }
+            );
+
+        }
+    );
+
+</script>
+
+
+</body>
+
+</html>

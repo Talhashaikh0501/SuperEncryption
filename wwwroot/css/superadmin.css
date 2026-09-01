@@ -1,0 +1,520 @@
+﻿* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    min-height: 100%;
+}
+
+body {
+    background: #f7f8fa;
+    color: #15171a;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+button,
+input {
+    font: inherit;
+}
+
+
+/* =========================================================
+   LOGIN
+   ========================================================= */
+
+.admin-login-body {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    padding: 25px;
+    background: radial-gradient( circle at 50% 20%, #ffffff 0, #f4f6f8 55%, #eceff3 100% );
+}
+
+.admin-login-card {
+    width: 100%;
+    max-width: 410px;
+    padding: 42px;
+    border: 1px solid #e1e4e8;
+    border-radius: 22px;
+    background: rgba(255,255,255,.94);
+    box-shadow: 0 25px 70px rgba(0,0,0,.08);
+}
+
+.admin-logo {
+    width: 58px;
+    height: 58px;
+    margin-bottom: 22px;
+    display: grid;
+    place-items: center;
+    border-radius: 17px;
+    background: #111;
+    color: #fff;
+    font-size: 17px;
+    font-weight: 800;
+}
+
+.admin-login-card h1 {
+    margin: 0;
+    font-size: 29px;
+}
+
+.admin-subtitle {
+    margin: 7px 0 28px;
+    color: #7a7f87;
+    font-size: 13px;
+}
+
+.admin-field {
+    margin-bottom: 15px;
+}
+
+    .admin-field label {
+        display: block;
+        margin-bottom: 7px;
+        font-size: 12px;
+        font-weight: 650;
+    }
+
+    .admin-field input {
+        width: 100%;
+        padding: 13px 14px;
+        border: 1px solid #dfe2e6;
+        border-radius: 10px;
+        outline: none;
+        background: #fafafa;
+        transition: border .2s ease, box-shadow .2s ease;
+    }
+
+        .admin-field input:focus {
+            border-color: #111;
+            box-shadow: 0 0 0 3px rgba(0,0,0,.05);
+        }
+
+.admin-primary-button {
+    width: 100%;
+    margin-top: 7px;
+    padding: 13px;
+    border: 0;
+    border-radius: 10px;
+    background: #111;
+    color: white;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.admin-error {
+    margin-bottom: 18px;
+    padding: 11px 13px;
+    border-radius: 9px;
+    background: #fff0f0;
+    color: #c22;
+    font-size: 12px;
+}
+
+.demo-notice {
+    margin-top: 22px;
+    text-align: center;
+    color: #a0a4aa;
+    font-size: 10px;
+}
+
+
+/* =========================================================
+   PAGE
+   ========================================================= */
+
+.admin-page {
+    min-height: 100vh;
+}
+
+.admin-header {
+    min-height: 88px;
+    padding: 20px max(25px, calc((100vw - 1150px) / 2));
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #e5e7ea;
+    background: rgba(255,255,255,.92);
+    backdrop-filter: blur(15px);
+}
+
+    .admin-header h1 {
+        margin: 3px 0 0;
+        font-size: 21px;
+    }
+
+.eyebrow {
+    color: #9da1a8;
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: .15em;
+}
+
+.header-username {
+    display: block;
+    margin-top: 3px;
+    color: #888;
+    font-size: 11px;
+}
+
+.logout-btn {
+    padding: 9px 15px;
+    border: 1px solid #ddd;
+    border-radius: 9px;
+    background: white;
+    cursor: pointer;
+}
+
+.admin-content {
+    width: min(1150px, calc(100% - 40px));
+    margin: auto;
+    padding: 42px 0 70px;
+}
+
+.page-heading {
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+    .page-heading h2 {
+        margin: 0;
+        font-size: 26px;
+    }
+
+    .page-heading p {
+        margin: 6px 0 0;
+        color: #858a91;
+        font-size: 13px;
+    }
+
+.user-total {
+    padding: 8px 12px;
+    border: 1px solid #e2e4e7;
+    border-radius: 50px;
+    background: white;
+    color: #777;
+    font-size: 11px;
+}
+
+.security-banner {
+    margin-bottom: 20px;
+    padding: 12px 15px;
+    border: 1px solid #eee2ba;
+    border-radius: 10px;
+    background: #fff9e8;
+    color: #75621c;
+    font-size: 11px;
+}
+
+
+/* =========================================================
+   USERS
+   ========================================================= */
+
+.users-table {
+    overflow: hidden;
+    border: 1px solid #e1e4e8;
+    border-radius: 16px;
+    background: white;
+}
+
+.table-head,
+.user-record {
+    display: grid;
+    grid-template-columns: minmax(240px, 1.5fr) minmax(180px, 1fr) 150px;
+    align-items: center;
+}
+
+.table-head {
+    min-height: 45px;
+    padding: 0 20px;
+    border-bottom: 1px solid #e8eaed;
+    background: #fafafa;
+    color: #8d9299;
+    font-size: 10px;
+    font-weight: 750;
+    text-transform: uppercase;
+    letter-spacing: .07em;
+}
+
+.user-record {
+    min-height: 78px;
+    padding: 12px 20px;
+    border-bottom: 1px solid #eeeeee;
+}
+
+    .user-record:last-child {
+        border-bottom: 0;
+    }
+
+.admin-user {
+    display: flex;
+    align-items: center;
+}
+
+.admin-avatar {
+    flex: 0 0 44px;
+    width: 44px;
+    height: 44px;
+    margin-right: 12px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: #f0f1f3;
+    border: 1px solid #e0e2e5;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.admin-user strong {
+    display: block;
+    font-size: 13px;
+}
+
+.admin-user span {
+    display: block;
+    margin-top: 4px;
+    color: #888;
+    font-size: 11px;
+}
+
+.password-value {
+    font-family: Consolas, monospace;
+    font-size: 13px;
+}
+
+.view-button {
+    display: inline-flex;
+    padding: 8px 13px;
+    border-radius: 8px;
+    background: #111;
+    color: white;
+    text-decoration: none;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   CONVERSATIONS
+   ========================================================= */
+
+.back-link {
+    color: #777;
+    text-decoration: none;
+    font-size: 11px;
+}
+
+.conversation-list {
+    display: grid;
+    gap: 10px;
+}
+
+.conversation-card {
+    padding: 15px 18px;
+    display: flex;
+    align-items: center;
+    border: 1px solid #e2e4e7;
+    border-radius: 14px;
+    background: white;
+    color: inherit;
+    text-decoration: none;
+    transition: transform .17s ease, box-shadow .17s ease;
+}
+
+    .conversation-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 28px rgba(0,0,0,.05);
+    }
+
+.conversation-info {
+    min-width: 0;
+    flex: 1;
+}
+
+    .conversation-info strong {
+        display: block;
+        font-size: 13px;
+    }
+
+    .conversation-info span {
+        display: block;
+        margin-top: 3px;
+        color: #888;
+        font-size: 11px;
+    }
+
+    .conversation-info p {
+        margin: 8px 0 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        color: #666;
+        font-size: 12px;
+    }
+
+.conversation-meta {
+    margin-left: 20px;
+    text-align: right;
+}
+
+    .conversation-meta span {
+        display: block;
+        color: #aaa;
+        font-size: 9px;
+    }
+
+    .conversation-meta strong {
+        display: block;
+        margin-top: 7px;
+        font-size: 10px;
+    }
+
+
+/* =========================================================
+   ADMIN CHAT
+   ========================================================= */
+
+.chat-participants {
+    margin-bottom: 25px;
+    padding: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    border: 1px solid #e2e4e7;
+    border-radius: 15px;
+    background: white;
+    text-align: center;
+}
+
+    .chat-participants strong {
+        display: block;
+        font-size: 14px;
+    }
+
+    .chat-participants span {
+        display: block;
+        margin-top: 4px;
+        color: #888;
+        font-size: 11px;
+    }
+
+    .chat-participants .between {
+        margin: 0;
+        font-size: 20px;
+    }
+
+.admin-chat {
+    padding: 24px;
+    border: 1px solid #e2e4e7;
+    border-radius: 16px;
+    background: white;
+}
+
+.admin-message {
+    padding: 14px 0;
+    border-bottom: 1px solid #eee;
+}
+
+    .admin-message:last-child {
+        border-bottom: 0;
+    }
+
+.message-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+    .message-meta strong {
+        font-size: 12px;
+    }
+
+    .message-meta span {
+        color: #aaa;
+        font-size: 9px;
+    }
+
+.admin-message-text {
+    margin-top: 7px;
+    color: #34373b;
+    font-size: 13px;
+    line-height: 1.5;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+
+/* =========================================================
+   EMPTY
+   ========================================================= */
+
+.admin-empty {
+    padding: 70px 20px;
+    border: 1px dashed #d8dadd;
+    border-radius: 15px;
+    background: white;
+    color: #888;
+    text-align: center;
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+    .admin-header {
+        min-height: 75px;
+        padding: 15px;
+    }
+
+    .admin-content {
+        width: calc(100% - 24px);
+        padding-top: 25px;
+    }
+
+    .page-heading h2 {
+        font-size: 21px;
+    }
+
+    .table-head {
+        display: none;
+    }
+
+    .user-record {
+        display: block;
+        padding: 17px;
+    }
+
+    .password-value {
+        margin: 14px 0;
+        padding: 10px;
+        border-radius: 8px;
+        background: #f6f6f6;
+    }
+
+    .view-button {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .conversation-meta span {
+        display: none;
+    }
+
+    .chat-participants {
+        gap: 15px;
+    }
+
+    .admin-login-card {
+        padding: 30px 24px;
+    }
+}

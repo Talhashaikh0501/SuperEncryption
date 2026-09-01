@@ -1,0 +1,280 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\DELL\\Desktop\\CyberChat\\CyberChatDemo\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{20889A3D-2200-49A2-9F00-C8EDFDCA4AE0}|CyberChatDemo.csproj|c:\\users\\dell\\desktop\\cyberchat\\cyberchatdemo\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{20889A3D-2200-49A2-9F00-C8EDFDCA4AE0}|CyberChatDemo.csproj|solutionrelative:controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{20889A3D-2200-49A2-9F00-C8EDFDCA4AE0}|CyberChatDemo.csproj|c:\\users\\dell\\desktop\\cyberchat\\cyberchatdemo\\views\\superadmin\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{20889A3D-2200-49A2-9F00-C8EDFDCA4AE0}|CyberChatDemo.csproj|solutionrelative:views\\superadmin\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{20889A3D-2200-49A2-9F00-C8EDFDCA4AE0}|CyberChatDemo.csproj|c:\\users\\dell\\desktop\\cyberchat\\cyberchatdemo\\views\\auth\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{20889A3D-2200-49A2-9F00-C8EDFDCA4AE0}|CyberChatDemo.csproj|solutionrelative:views\\auth\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{20889A3D-2200-49A2-9F00-C8EDFDCA4AE0}|CyberChatDemo.csproj|c:\\users\\dell\\desktop\\cyberchat\\cyberchatdemo\\controllers\\superadmincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{20889A3D-2200-49A2-9F00-C8EDFDCA4AE0}|CyberChatDemo.csproj|solutionrelative:controllers\\superadmincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{20889A3D-2200-49A2-9F00-C8EDFDCA4AE0}|CyberChatDemo.csproj|c:\\users\\dell\\desktop\\cyberchat\\cyberchatdemo\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{20889A3D-2200-49A2-9F00-C8EDFDCA4AE0}|CyberChatDemo.csproj|solutionrelative:views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{20889A3D-2200-49A2-9F00-C8EDFDCA4AE0}|CyberChatDemo.csproj|c:\\users\\dell\\desktop\\cyberchat\\cyberchatdemo\\views\\chat\\room.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{20889A3D-2200-49A2-9F00-C8EDFDCA4AE0}|CyberChatDemo.csproj|solutionrelative:views\\chat\\room.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{20889A3D-2200-49A2-9F00-C8EDFDCA4AE0}|CyberChatDemo.csproj|c:\\users\\dell\\desktop\\cyberchat\\cyberchatdemo\\views\\chat\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{20889A3D-2200-49A2-9F00-C8EDFDCA4AE0}|CyberChatDemo.csproj|solutionrelative:views\\chat\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{20889A3D-2200-49A2-9F00-C8EDFDCA4AE0}|CyberChatDemo.csproj|c:\\users\\dell\\desktop\\cyberchat\\cyberchatdemo\\wwwroot\\css\\chat-room.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{20889A3D-2200-49A2-9F00-C8EDFDCA4AE0}|CyberChatDemo.csproj|solutionrelative:wwwroot\\css\\chat-room.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{20889A3D-2200-49A2-9F00-C8EDFDCA4AE0}|CyberChatDemo.csproj|c:\\users\\dell\\desktop\\cyberchat\\cyberchatdemo\\wwwroot\\css\\chat.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{20889A3D-2200-49A2-9F00-C8EDFDCA4AE0}|CyberChatDemo.csproj|solutionrelative:wwwroot\\css\\chat.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{20889A3D-2200-49A2-9F00-C8EDFDCA4AE0}|CyberChatDemo.csproj|c:\\users\\dell\\desktop\\cyberchat\\cyberchatdemo\\hubs\\chathub.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{20889A3D-2200-49A2-9F00-C8EDFDCA4AE0}|CyberChatDemo.csproj|solutionrelative:hubs\\chathub.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{20889A3D-2200-49A2-9F00-C8EDFDCA4AE0}|CyberChatDemo.csproj|c:\\users\\dell\\desktop\\cyberchat\\cyberchatdemo\\controllers\\chatcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{20889A3D-2200-49A2-9F00-C8EDFDCA4AE0}|CyberChatDemo.csproj|solutionrelative:controllers\\chatcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{20889A3D-2200-49A2-9F00-C8EDFDCA4AE0}|CyberChatDemo.csproj|c:\\users\\dell\\desktop\\cyberchat\\cyberchatdemo\\models\\chatroomviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{20889A3D-2200-49A2-9F00-C8EDFDCA4AE0}|CyberChatDemo.csproj|solutionrelative:models\\chatroomviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{20889A3D-2200-49A2-9F00-C8EDFDCA4AE0}|CyberChatDemo.csproj|c:\\users\\dell\\desktop\\cyberchat\\cyberchatdemo\\models\\chatindexviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{20889A3D-2200-49A2-9F00-C8EDFDCA4AE0}|CyberChatDemo.csproj|solutionrelative:models\\chatindexviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{20889A3D-2200-49A2-9F00-C8EDFDCA4AE0}|CyberChatDemo.csproj|c:\\users\\dell\\desktop\\cyberchat\\cyberchatdemo\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{20889A3D-2200-49A2-9F00-C8EDFDCA4AE0}|CyberChatDemo.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "AuthController.cs",
+              "DocumentMoniker": "C:\\Users\\DELL\\Desktop\\CyberChat\\CyberChatDemo\\Controllers\\AuthController.cs",
+              "RelativeDocumentMoniker": "Controllers\\AuthController.cs",
+              "ToolTip": "C:\\Users\\DELL\\Desktop\\CyberChat\\CyberChatDemo\\Controllers\\AuthController.cs",
+              "RelativeToolTip": "Controllers\\AuthController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAHQBAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-01T07:16:59.456Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "SuperAdminController.cs",
+              "DocumentMoniker": "C:\\Users\\DELL\\Desktop\\CyberChat\\CyberChatDemo\\Controllers\\SuperAdminController.cs",
+              "RelativeDocumentMoniker": "Controllers\\SuperAdminController.cs",
+              "ToolTip": "C:\\Users\\DELL\\Desktop\\CyberChat\\CyberChatDemo\\Controllers\\SuperAdminController.cs",
+              "RelativeToolTip": "Controllers\\SuperAdminController.cs",
+              "ViewState": "AgIAAHUDAAAAAAAAAAAAwJUDAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-01T07:04:45.262Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\DELL\\Desktop\\CyberChat\\CyberChatDemo\\Views\\SuperAdmin\\Index.cshtml",
+              "RelativeDocumentMoniker": "Views\\SuperAdmin\\Index.cshtml",
+              "ToolTip": "C:\\Users\\DELL\\Desktop\\CyberChat\\CyberChatDemo\\Views\\SuperAdmin\\Index.cshtml",
+              "RelativeToolTip": "Views\\SuperAdmin\\Index.cshtml",
+              "ViewState": "AgIAAN4CAAAAAAAAAAAQwOoCAAAkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-09-01T06:57:08.013Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\DELL\\Desktop\\CyberChat\\CyberChatDemo\\Views\\Home\\Index.cshtml",
+              "RelativeDocumentMoniker": "Views\\Home\\Index.cshtml",
+              "ToolTip": "C:\\Users\\DELL\\Desktop\\CyberChat\\CyberChatDemo\\Views\\Home\\Index.cshtml",
+              "RelativeToolTip": "Views\\Home\\Index.cshtml",
+              "ViewState": "AgIAAOICAAAAAAAAAADwv/QCAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-08-31T23:20:59.695Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Login.cshtml",
+              "DocumentMoniker": "C:\\Users\\DELL\\Desktop\\CyberChat\\CyberChatDemo\\Views\\Auth\\Login.cshtml",
+              "RelativeDocumentMoniker": "Views\\Auth\\Login.cshtml",
+              "ToolTip": "C:\\Users\\DELL\\Desktop\\CyberChat\\CyberChatDemo\\Views\\Auth\\Login.cshtml",
+              "RelativeToolTip": "Views\\Auth\\Login.cshtml",
+              "ViewState": "AgIAAHAAAAAAAAAAAAAAwHoAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-08-31T23:04:13.977Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "chat.css",
+              "DocumentMoniker": "C:\\Users\\DELL\\Desktop\\CyberChat\\CyberChatDemo\\wwwroot\\css\\chat.css",
+              "RelativeDocumentMoniker": "wwwroot\\css\\chat.css",
+              "ToolTip": "C:\\Users\\DELL\\Desktop\\CyberChat\\CyberChatDemo\\wwwroot\\css\\chat.css",
+              "RelativeToolTip": "wwwroot\\css\\chat.css",
+              "ViewState": "AgIAAKQFAAAAAAAAAAAkwMYFAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2026-08-31T22:31:50.905Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "ChatHub.cs",
+              "DocumentMoniker": "C:\\Users\\DELL\\Desktop\\CyberChat\\CyberChatDemo\\Hubs\\ChatHub.cs",
+              "RelativeDocumentMoniker": "Hubs\\ChatHub.cs",
+              "ToolTip": "C:\\Users\\DELL\\Desktop\\CyberChat\\CyberChatDemo\\Hubs\\ChatHub.cs",
+              "RelativeToolTip": "Hubs\\ChatHub.cs",
+              "ViewState": "AgIAAAYCAAAAAAAAAAAAwCYCAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-31T22:26:50.453Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\DELL\\Desktop\\CyberChat\\CyberChatDemo\\Views\\chat\\Index.cshtml",
+              "RelativeDocumentMoniker": "Views\\chat\\Index.cshtml",
+              "ToolTip": "C:\\Users\\DELL\\Desktop\\CyberChat\\CyberChatDemo\\Views\\chat\\Index.cshtml",
+              "RelativeToolTip": "Views\\chat\\Index.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-08-31T22:20:35.258Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "ChatRoomViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\DELL\\Desktop\\CyberChat\\CyberChatDemo\\Models\\ChatRoomViewModel.cs",
+              "RelativeDocumentMoniker": "Models\\ChatRoomViewModel.cs",
+              "ToolTip": "C:\\Users\\DELL\\Desktop\\CyberChat\\CyberChatDemo\\Models\\ChatRoomViewModel.cs",
+              "RelativeToolTip": "Models\\ChatRoomViewModel.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAxwCYAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-31T22:13:54.569Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "ChatIndexViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\DELL\\Desktop\\CyberChat\\CyberChatDemo\\Models\\ChatIndexViewModel.cs",
+              "RelativeDocumentMoniker": "Models\\ChatIndexViewModel.cs",
+              "ToolTip": "C:\\Users\\DELL\\Desktop\\CyberChat\\CyberChatDemo\\Models\\ChatIndexViewModel.cs",
+              "RelativeToolTip": "Models\\ChatIndexViewModel.cs",
+              "ViewState": "AgIAABgAAAAAAAAAAAAxwDgAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-31T22:13:38.676Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "chat-room.css",
+              "DocumentMoniker": "C:\\Users\\DELL\\Desktop\\CyberChat\\CyberChatDemo\\wwwroot\\css\\chat-room.css",
+              "RelativeDocumentMoniker": "wwwroot\\css\\chat-room.css",
+              "ToolTip": "C:\\Users\\DELL\\Desktop\\CyberChat\\CyberChatDemo\\wwwroot\\css\\chat-room.css",
+              "RelativeToolTip": "wwwroot\\css\\chat-room.css",
+              "ViewState": "AgIAAJMDAAAAAAAAAAAswLUDAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2026-08-31T21:58:38.17Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Room.cshtml",
+              "DocumentMoniker": "C:\\Users\\DELL\\Desktop\\CyberChat\\CyberChatDemo\\Views\\chat\\Room.cshtml",
+              "RelativeDocumentMoniker": "Views\\chat\\Room.cshtml",
+              "ToolTip": "C:\\Users\\DELL\\Desktop\\CyberChat\\CyberChatDemo\\Views\\chat\\Room.cshtml",
+              "RelativeToolTip": "Views\\chat\\Room.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAxAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-08-31T21:58:19.383Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "ChatController.cs",
+              "DocumentMoniker": "C:\\Users\\DELL\\Desktop\\CyberChat\\CyberChatDemo\\Controllers\\ChatController.cs",
+              "RelativeDocumentMoniker": "Controllers\\ChatController.cs",
+              "ToolTip": "C:\\Users\\DELL\\Desktop\\CyberChat\\CyberChatDemo\\Controllers\\ChatController.cs",
+              "RelativeToolTip": "Controllers\\ChatController.cs",
+              "ViewState": "AgIAAOcHAAAAAAAAAAAgwAkIAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-31T21:56:41.692Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\DELL\\Desktop\\CyberChat\\CyberChatDemo\\appsettings.json",
+              "RelativeDocumentMoniker": "appsettings.json",
+              "ToolTip": "C:\\Users\\DELL\\Desktop\\CyberChat\\CyberChatDemo\\appsettings.json",
+              "RelativeToolTip": "appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAATAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-08-31T21:07:46.015Z",
+              "EditorCaption": ""
+            }
+          ]
+        },
+        {
+          "DockedWidth": 914,
+          "SelectedChildIndex": -1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

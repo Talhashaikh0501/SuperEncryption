@@ -1,0 +1,107 @@
+﻿@{
+    Layout = null;
+    ViewData["Title"] = "SuperAdmin Login";
+}
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8" />
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0" />
+
+    <title>SuperAdmin Login</title>
+
+    <link rel="stylesheet"
+          href="~/css/superadmin.css"
+          asp-append-version="true" />
+
+</head>
+
+
+<body class="admin-login-body">
+
+    <div class="admin-login-card">
+
+        <div class="admin-logo">
+            SA
+        </div>
+
+        <h1>
+            SuperAdmin
+        </h1>
+
+        <p class="admin-subtitle">
+            CyberChat demonstration console
+        </p>
+
+
+        @if (ViewBag.Error != null)
+        {
+            <div class="admin-error">
+                @ViewBag.Error
+            </div>
+        }
+
+
+        <form method="post"
+              asp-controller="SuperAdmin"
+              asp-action="Login">
+
+            @Html.AntiForgeryToken()
+
+
+            <div class="admin-field">
+
+                <label>
+                    Username
+                </label>
+
+                <input type="text"
+                       name="username"
+                       placeholder="SuperAdmin username"
+                       required
+                       autocomplete="off" />
+
+            </div>
+
+
+            <div class="admin-field">
+
+                <label>
+                    Password
+                </label>
+
+                <input type="password"
+                       name="password"
+                       placeholder="SuperAdmin password"
+                       required />
+
+            </div>
+
+
+            <button type="submit"
+                    class="admin-primary-button">
+
+                Sign in
+
+            </button>
+
+        </form>
+
+
+        <div class="demo-notice">
+
+            Authorized cybersecurity demonstration environment
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

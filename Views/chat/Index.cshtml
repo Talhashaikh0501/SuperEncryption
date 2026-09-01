@@ -1,0 +1,1473 @@
+﻿@model CyberChatDemo.Models.ChatIndexViewModel
+
+@{
+    Layout = null;
+
+    string currentInitial =
+        string.IsNullOrWhiteSpace(Model.CurrentDisplayName)
+            ? "?"
+            : Model.CurrentDisplayName.Substring(0, 1).ToUpper();
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8" />
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0" />
+
+    <title>Messages | SuperEncryption </title>
+
+    <link rel="stylesheet"
+          href="~/css/chat.css"
+          asp-append-version="true" />
+
+</head>
+
+
+<body>
+
+    <div class="app-shell">
+
+
+        <!-- ===================================================== -->
+        <!-- INBOX -->
+        <!-- ===================================================== -->
+
+        <aside class="sidebar">
+
+
+            <!-- ================================================= -->
+            <!-- HEADER -->
+            <!-- ================================================= -->
+
+            <header class="sidebar-header">
+
+
+                <div class="brand-mark">
+
+                    <svg viewBox="0 0 24 24">
+
+                        <path d="M12 3 4.5 6.3v5.1c0 4.7 3 7.8 7.5 9.6 4.5-1.8 7.5-4.9 7.5-9.6V6.3L12 3Z" />
+
+                        <path d="M8.3 11.8h7.4" />
+
+                        <path d="M9.5 9.2h5a2 2 0 0 1 2 2v3.1a2 2 0 0 1-2 2h-5a2 2 0 0 1-2-2v-3.1a2 2 0 0 1 2-2Z" />
+
+                    </svg>
+
+                </div>
+
+
+                <div class="brand-account">
+
+                    <span class="brand-name">
+                        SuperEncryption
+                    </span>
+
+                    <div class="account-line">
+
+                        <strong>
+                            @Model.CurrentInstagramId
+                        </strong>
+
+                        <span class="account-status">
+
+                            <span class="status-dot">
+                            </span>
+
+                            Online
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <form method="post"
+                      asp-controller="Chat"
+                      asp-action="Logout"
+                      class="logout-form">
+
+                    <button type="submit"
+                            class="logout-button"
+                            title="Sign out"
+                            aria-label="Sign out">
+
+                        <svg viewBox="0 0 24 24">
+
+                            <path d="M10 17l5-5-5-5" />
+
+                            <path d="M15 12H3" />
+
+                            <path d="M14 3h5a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-5" />
+
+                        </svg>
+
+                    </button>
+
+                </form>
+
+            </header>
+
+
+
+            <!-- ================================================= -->
+            <!-- SCROLL AREA -->
+            <!-- ================================================= -->
+
+            <div class="sidebar-scroll">
+
+
+                <!-- ================================================= -->
+                <!-- SECURITY STRIP -->
+                <!-- ================================================= -->
+
+                <div class="security-strip">
+
+                    <div class="security-strip-icon">
+
+                        <svg viewBox="0 0 24 24">
+
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z" />
+
+                            <path d="m9 12 2 2 4-4" />
+
+                        </svg>
+
+                    </div>
+
+
+                    <div class="security-strip-copy">
+
+                        <strong>
+                            Secure Messaging
+                        </strong>
+
+                        <span>
+                            Protected account session
+                        </span>
+
+                    </div>
+
+
+                    <div class="protected-pill">
+
+                        <span>
+                        </span>
+
+                        Protected
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- ================================================= -->
+                <!-- STATUS MESSAGE -->
+                <!-- ================================================= -->
+                @if (TempData["FriendMessage"] != null)
+                {
+                    <div class="status-message">
+
+                        <svg viewBox="0 0 24 24">
+
+                            <circle cx="12"
+                                    cy="12"
+                                    r="9">
+                            </circle>
+
+                            <path d="m8.5 12 2.2 2.2 4.8-4.8" />
+
+                        </svg>
+
+
+                        <span>
+                            @TempData["FriendMessage"]
+                        </span>
+
+                    </div>
+                }
+
+
+
+                <!-- ================================================= -->
+                <!-- SEARCH -->
+                <!-- ================================================= -->
+
+                <form method="get"
+                      asp-controller="Chat"
+                      asp-action="Index"
+                      class="search-box">
+
+
+                    <svg class="search-icon"
+                         viewBox="0 0 24 24">
+
+                        <circle cx="11"
+                                cy="11"
+                                r="7">
+                        </circle>
+
+                        <path d="m20 20-4-4">
+                        </path>
+
+                    </svg>
+
+
+                    <input type="text"
+                           name="search"
+                           value="@Model.SearchQuery"
+                           placeholder="Search users"
+                           autocomplete="off"
+                           aria-label="Search users" />
+
+
+                    @if (!string.IsNullOrWhiteSpace(Model.SearchQuery))
+                    {
+                        <a asp-controller="Chat"
+                           asp-action="Index"
+                           class="clear-search"
+                           aria-label="Clear search">
+
+                            <svg viewBox="0 0 24 24">
+
+                                <path d="m7 7 10 10" />
+
+                                <path d="M17 7 7 17" />
+
+                            </svg>
+
+                        </a>
+                    }
+
+                </form>
+
+
+
+                <!-- ================================================= -->
+                <!-- SEARCH RESULTS -->
+                <!-- ================================================= -->
+                @if (!string.IsNullOrWhiteSpace(Model.SearchQuery))
+                {
+                    <section class="sidebar-section">
+
+                        <div class="section-heading">
+
+                            <div>
+
+                                <span class="section-kicker">
+                                    Directory
+                                </span>
+
+                                <strong>
+                                    Search results
+                                </strong>
+
+                            </div>
+
+
+                            <span class="section-count">
+                                @Model.SearchResults.Count
+                            </span>
+
+                        </div>
+
+
+                        @if (Model.SearchResults.Count == 0)
+                        {
+                            <div class="empty-state compact-empty">
+
+                                <div class="empty-state-icon">
+
+                                    <svg viewBox="0 0 24 24">
+
+                                        <circle cx="11"
+                                                cy="11"
+                                                r="7">
+                                        </circle>
+
+                                        <path d="m20 20-4-4">
+                                        </path>
+
+                                    </svg>
+
+                                </div>
+
+
+                                <strong>
+                                    No users found
+                                </strong>
+
+
+                                <p>
+                                    Try another username or display name.
+                                </p>
+
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="people-list">
+
+                                @foreach (var user in Model.SearchResults)
+                                {
+                                    bool alreadyRequested =
+                                    Model.OutgoingPendingUserIds.Contains(user.Id);
+
+
+                                    string initial =
+                                    string.IsNullOrWhiteSpace(user.DisplayName)
+                                    ? "?"
+                                    : user.DisplayName.Substring(0, 1).ToUpper();
+
+
+                                    <article class="person-row">
+
+                                        <div class="avatar">
+
+                                            @initial
+
+
+                                            @if (user.IsOnline)
+                                            {
+                                                <span class="online-dot">
+                                                </span>
+                                            }
+
+                                        </div>
+
+
+                                        <div class="person-info">
+
+                                            <strong>
+                                                @user.DisplayName
+                                            </strong>
+
+                                            <span>
+                                                @($"@{user.InstagramId}")
+                                            </span>
+
+                                        </div>
+
+
+                                        @if (alreadyRequested)
+                                        {
+                                            <button type="button"
+                                                    class="requested-button"
+                                                    disabled>
+
+                                                Requested
+
+                                            </button>
+                                        }
+                                        else
+                                        {
+                                            <form method="post"
+                                                  asp-controller="Chat"
+                                                  asp-action="SendFriendRequest">
+
+                                                <input type="hidden"
+                                                       name="receiverId"
+                                                       value="@user.Id" />
+
+
+                                                <button type="submit"
+                                                        class="primary-small-button">
+
+                                                    Add
+
+                                                </button>
+
+                                            </form>
+                                        }
+
+                                    </article>
+                                }
+
+                            </div>
+                        }
+
+                    </section>
+                }
+
+
+
+                <!-- ================================================= -->
+                <!-- FRIEND REQUESTS -->
+                <!-- ================================================= -->
+                @if (Model.IncomingRequests.Count > 0)
+                {
+                    <section class="sidebar-section">
+
+                        <div class="section-heading">
+
+                            <div>
+
+                                <span class="section-kicker">
+                                    Network
+                                </span>
+
+                                <strong>
+                                    Friend requests
+                                </strong>
+
+                            </div>
+
+
+                            <span class="section-count request-count">
+                                @Model.IncomingRequests.Count
+                            </span>
+
+                        </div>
+
+
+                        <div class="request-list">
+
+                            @foreach (var request in Model.IncomingRequests)
+                            {
+                                string requestInitial =
+                                string.IsNullOrWhiteSpace(request.DisplayName)
+                                ? "?"
+                                : request.DisplayName.Substring(0, 1).ToUpper();
+
+
+                                <article class="request-card">
+
+                                    <div class="avatar">
+
+                                        @requestInitial
+
+
+                                        @if (request.IsOnline)
+                                        {
+                                            <span class="online-dot">
+                                            </span>
+                                        }
+
+                                    </div>
+
+
+                                    <div class="request-main">
+
+                                        <div class="request-user">
+
+                                            <strong>
+                                                @request.DisplayName
+                                            </strong>
+
+                                            <span>
+                                                @($"@{request.InstagramId}")
+                                            </span>
+
+                                        </div>
+
+
+                                        <div class="request-actions">
+
+                                            <form method="post"
+                                                  asp-controller="Chat"
+                                                  asp-action="AcceptFriendRequest">
+
+                                                <input type="hidden"
+                                                       name="requestId"
+                                                       value="@request.RequestId" />
+
+
+                                                <button type="submit"
+                                                        class="accept-button">
+
+                                                    Accept
+
+                                                </button>
+
+                                            </form>
+
+
+                                            <form method="post"
+                                                  asp-controller="Chat"
+                                                  asp-action="DeclineFriendRequest">
+
+                                                <input type="hidden"
+                                                       name="requestId"
+                                                       value="@request.RequestId" />
+
+
+                                                <button type="submit"
+                                                        class="decline-button">
+
+                                                    Decline
+
+                                                </button>
+
+                                            </form>
+
+                                        </div>
+
+                                    </div>
+
+                                </article>
+                            }
+
+                        </div>
+
+                    </section>
+                }
+
+
+
+                <!-- ================================================= -->
+                <!-- MESSAGES -->
+                <!-- ================================================= -->
+
+                <section class="sidebar-section messages-section">
+
+                    <div class="section-heading">
+
+                        <div>
+
+                            <span class="section-kicker">
+                                Private
+                            </span>
+
+                            <strong>
+                                Messages
+                            </strong>
+
+                        </div>
+
+
+                        <span class="section-count">
+                            @Model.Friends.Count
+                        </span>
+
+                    </div>
+
+
+                    <div class="user-list"
+                         id="dmUserList">
+
+
+                        @if (Model.Friends.Count == 0)
+                        {
+                            <div class="empty-state"
+                                 id="emptyFriendState">
+
+                                <div class="empty-state-icon large">
+
+                                    <svg viewBox="0 0 24 24">
+
+                                        <path d="M21 15a4 4 0 0 1-4 4H8l-5 3 1.7-5A7 7 0 0 1 3 12V8a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4Z" />
+
+                                    </svg>
+
+                                </div>
+
+
+                                <strong>
+                                    No conversations yet
+                                </strong>
+
+
+                                <p>
+                                    Search for a user, connect,
+                                    and begin a private conversation.
+                                </p>
+
+                            </div>
+                        }
+                        else
+                        {
+                            @foreach (var user in Model.Friends)
+                            {
+                                string friendInitial =
+                                string.IsNullOrWhiteSpace(user.DisplayName)
+                                ? "?"
+                                : user.DisplayName.Substring(0, 1).ToUpper();
+
+
+                                <form method="post"
+                                      asp-controller="Chat"
+                                      asp-action="StartConversation"
+                                      class="user-form"
+                                      data-friend-id="@user.Id"
+                                      data-unread-count="@user.UnreadCount">
+
+                                    <input type="hidden"
+                                           name="otherUserId"
+                                           value="@user.Id" />
+
+
+                                    <button type="submit"
+                                            class="user-row">
+
+
+                                        <div class="avatar dm-avatar"
+                                             data-presence-avatar="@user.Id">
+
+                                            @friendInitial
+
+
+                                            @if (user.IsOnline)
+                                            {
+                                                <span class="online-dot">
+                                                </span>
+                                            }
+
+                                        </div>
+
+
+                                        <div class="user-details">
+
+                                            <div class="dm-name-line">
+
+                                                <strong>
+                                                    @user.DisplayName
+                                                </strong>
+
+
+                                                @if (user.IsOnline)
+                                                {
+                                                    <span class="mini-active-label">
+                                                        Active
+                                                    </span>
+                                                }
+
+                                            </div>
+
+
+                                            <span class="dm-preview">
+
+                                                @if (!string.IsNullOrWhiteSpace(user.LastMessage))
+                                                {
+                                                    @user.LastMessage
+                                                }
+                                                else
+                                                {
+                                                    <text>
+                                                        Start a conversation
+                                                    </text>
+                                                }
+
+                                            </span>
+
+                                        </div>
+
+
+                                        <div class="dm-meta">
+
+                                            <span class="dm-time">
+
+                                                @if (user.LastMessageAt.HasValue)
+                                                {
+                                                    @(user.LastMessageAt.Value.ToString("h:mm tt"))
+                                                }
+
+                                            </span>
+
+
+                                            @if (user.UnreadCount > 0)
+                                            {
+                                                <span class="unread-badge">
+
+                                                    @(user.UnreadCount > 99
+                                                                                            ? "99+"
+                                                                                            : user.UnreadCount.ToString())
+
+                                    </span>
+                                                                        }
+
+                                        </div>
+
+
+                                        <svg class="open-chat-icon"
+                                             viewBox="0 0 24 24">
+
+                                            <path d="m9 18 6-6-6-6" />
+
+                                        </svg>
+
+                                    </button>
+
+                                </form>
+                            }
+                        }
+
+                    </div>
+
+                </section>
+
+            </div>
+
+        </aside>
+
+
+
+        <!-- ===================================================== -->
+        <!-- WELCOME PANEL -->
+        <!-- ===================================================== -->
+
+        <main class="welcome-panel">
+
+
+            <div class="royal-glow glow-one">
+            </div>
+
+            <div class="royal-glow glow-two">
+            </div>
+
+
+            <section class="welcome-card">
+
+
+                <div class="welcome-security-mark">
+
+                    <div class="security-ring">
+                    </div>
+
+
+                    <div class="security-logo">
+
+                        <svg viewBox="0 0 24 24">
+
+                            <path d="M12 3 4.5 6.3v5.1c0 4.7 3 7.8 7.5 9.6 4.5-1.8 7.5-4.9 7.5-9.6V6.3L12 3Z" />
+
+                            <path d="M8.5 11.4h7" />
+
+                            <path d="M9.5 9h5a2 2 0 0 1 2 2v3.5a2 2 0 0 1-2 2h-5a2 2 0 0 1-2-2V11a2 2 0 0 1 2-2Z" />
+
+                        </svg>
+
+                    </div>
+
+                </div>
+
+
+                <span class="welcome-kicker">
+                    SUPERENCRYPTION SECURE MESSAGING
+                </span>
+
+
+                <h2>
+                    Your private
+                    <span>communication space.</span>
+                </h2>
+
+
+                <p>
+                    Select a contact from your messages
+                    to continue a protected real-time conversation.
+                </p>
+
+
+                <div class="trust-features">
+
+
+                    <div class="trust-feature">
+
+                        <div class="trust-feature-icon">
+
+                            <svg viewBox="0 0 24 24">
+
+                                <path d="m5 12 4 4L19 6" />
+
+                            </svg>
+
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Read receipts
+                            </strong>
+
+                            <span>
+                                Live delivery status
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="trust-feature">
+
+                        <div class="trust-feature-icon">
+
+                            <svg viewBox="0 0 24 24">
+
+                                <circle cx="12"
+                                        cy="12"
+                                        r="8">
+                                </circle>
+
+                                <path d="M12 8v4l3 2" />
+
+                            </svg>
+
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Live presence
+                            </strong>
+
+                            <span>
+                                Real-time availability
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="trust-feature">
+
+                        <div class="trust-feature-icon">
+
+                            <svg viewBox="0 0 24 24">
+
+                                <path d="M4 5h16v12H8l-4 3Z" />
+
+                                <path d="M8 10h8" />
+
+                                <path d="M8 13h5" />
+
+                            </svg>
+
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Private conversations
+                            </strong>
+
+                            <span>
+                                Controlled user access
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="session-indicator">
+
+                    <span class="session-dot">
+                    </span>
+
+                    Protected session active
+
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+
+
+    <!-- ========================================================= -->
+    <!-- HEARTBEAT TOKEN -->
+    <!-- ========================================================= -->
+
+    <form id="heartbeatTokenForm"
+          style="display:none;">
+
+        @Html.AntiForgeryToken()
+
+    </form>
+
+
+
+    <!-- ========================================================= -->
+    <!-- SIGNALR -->
+    <!-- ========================================================= -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/8.0.7/signalr.min.js"></script>
+
+
+    <script>
+
+        const currentUserId =
+            "@Model.CurrentUserId";
+
+
+        const dmUserList =
+            document.getElementById(
+                "dmUserList"
+            );
+
+
+
+        // =========================================================
+        // FIND FRIEND ROW
+        // =========================================================
+
+        function findFriendRow(friendId) {
+
+            const rows =
+                document.querySelectorAll(
+                    ".user-form[data-friend-id]"
+                );
+
+
+            for (const row of rows) {
+
+                if (
+                    row.dataset.friendId
+                    ===
+                    friendId
+                ) {
+
+                    return row;
+                }
+            }
+
+
+            return null;
+        }
+
+
+
+        // =========================================================
+        // FORMAT TIME
+        // =========================================================
+
+        function formatMessageTime(sentAt) {
+
+            const date =
+                new Date(sentAt);
+
+
+            return date.toLocaleTimeString(
+                [],
+                {
+                    hour:
+                        "numeric",
+
+                    minute:
+                        "2-digit"
+                }
+            );
+        }
+
+
+
+        // =========================================================
+        // UPDATE DM ROW
+        // =========================================================
+
+        function updateDmRow(message) {
+
+            const isIncoming =
+                message.senderId
+                !==
+                currentUserId;
+
+
+            const friendId =
+                isIncoming
+                    ? message.senderId
+                    : message.receiverId;
+
+
+            const friendRow =
+                findFriendRow(friendId);
+
+
+            if (!friendRow) {
+
+                return;
+            }
+
+
+            const preview =
+                friendRow.querySelector(
+                    ".dm-preview"
+                );
+
+
+            if (preview) {
+
+                preview.textContent =
+                    message.text;
+            }
+
+
+            const timeElement =
+                friendRow.querySelector(
+                    ".dm-time"
+                );
+
+
+            if (timeElement) {
+
+                timeElement.textContent =
+                    formatMessageTime(
+                        message.sentAt
+                    );
+            }
+
+
+            if (isIncoming) {
+
+                let unreadCount =
+                    parseInt(
+                        friendRow.dataset.unreadCount
+                        ||
+                        "0"
+                    );
+
+
+                unreadCount++;
+
+
+                friendRow.dataset.unreadCount =
+                    unreadCount.toString();
+
+
+                let unreadBadge =
+                    friendRow.querySelector(
+                        ".unread-badge"
+                    );
+
+
+                if (!unreadBadge) {
+
+                    unreadBadge =
+                        document.createElement(
+                            "span"
+                        );
+
+
+                    unreadBadge.className =
+                        "unread-badge";
+
+
+                    const meta =
+                        friendRow.querySelector(
+                            ".dm-meta"
+                        );
+
+
+                    if (meta) {
+
+                        meta.appendChild(
+                            unreadBadge
+                        );
+                    }
+                }
+
+
+                if (unreadBadge) {
+
+                    unreadBadge.textContent =
+                        unreadCount > 99
+                            ? "99+"
+                            : unreadCount.toString();
+                }
+            }
+
+
+            if (dmUserList) {
+
+                dmUserList.prepend(
+                    friendRow
+                );
+
+
+                friendRow.classList.remove(
+                    "dm-updated"
+                );
+
+
+                void friendRow.offsetWidth;
+
+
+                friendRow.classList.add(
+                    "dm-updated"
+                );
+            }
+        }
+
+
+
+        // =========================================================
+        // SIGNALR
+        // =========================================================
+
+        const inboxConnection =
+            new signalR
+                .HubConnectionBuilder()
+                .withUrl("/chatHub")
+                .withAutomaticReconnect()
+                .build();
+
+
+
+        inboxConnection.on(
+            "InboxMessage",
+            function (message) {
+
+                updateDmRow(
+                    message
+                );
+
+            }
+        );
+
+
+
+        async function connectInbox() {
+
+            try {
+
+                await inboxConnection.start();
+
+
+                await inboxConnection.invoke(
+                    "JoinInbox"
+                );
+
+            }
+            catch (error) {
+
+                console.error(
+                    "Inbox connection error:",
+                    error
+                );
+
+
+                setTimeout(
+                    connectInbox,
+                    3000
+                );
+            }
+        }
+
+
+
+        inboxConnection.onreconnected(
+            async function () {
+
+                try {
+
+                    await inboxConnection.invoke(
+                        "JoinInbox"
+                    );
+
+                }
+                catch (error) {
+
+                    console.error(
+                        "Inbox reconnect error:",
+                        error
+                    );
+                }
+
+            }
+        );
+
+
+        connectInbox();
+
+
+
+        // =========================================================
+        // HEARTBEAT
+        // =========================================================
+
+        async function sendHeartbeat() {
+
+            if (
+                document.visibilityState
+                !==
+                "visible"
+            ) {
+
+                return;
+            }
+
+
+            const token =
+                document.querySelector(
+                    '#heartbeatTokenForm input[name="__RequestVerificationToken"]'
+                );
+
+
+            if (!token) {
+
+                return;
+            }
+
+
+            try {
+
+                await fetch(
+                    "/Chat/Heartbeat",
+                    {
+                        method:
+                            "POST",
+
+                        headers:
+                        {
+                            "Content-Type":
+                                "application/x-www-form-urlencoded"
+                        },
+
+                        body:
+                            "__RequestVerificationToken="
+                            +
+                            encodeURIComponent(
+                                token.value
+                            )
+                    }
+                );
+
+            }
+            catch (error) {
+
+                console.error(
+                    "Heartbeat error:",
+                    error
+                );
+            }
+        }
+
+
+        sendHeartbeat();
+
+
+        setInterval(
+            sendHeartbeat,
+            25000
+        );
+
+
+
+        // =========================================================
+        // FRIEND PRESENCE
+        // =========================================================
+
+        async function refreshFriendPresence(
+            friendId
+        ) {
+
+            try {
+
+                const response =
+                    await fetch(
+                        "/Chat/Presence?userId="
+                        +
+                        encodeURIComponent(
+                            friendId
+                        ),
+                        {
+                            cache:
+                                "no-store"
+                        }
+                    );
+
+
+                if (!response.ok) {
+
+                    return;
+                }
+
+
+                const data =
+                    await response.json();
+
+
+                const avatar =
+                    document.querySelector(
+                        `[data-presence-avatar="${friendId}"]`
+                    );
+
+
+                const friendRow =
+                    findFriendRow(
+                        friendId
+                    );
+
+
+                if (!avatar) {
+
+                    return;
+                }
+
+
+                let onlineDot =
+                    avatar.querySelector(
+                        ".online-dot"
+                    );
+
+
+                if (data.isOnline) {
+
+                    if (!onlineDot) {
+
+                        onlineDot =
+                            document.createElement(
+                                "span"
+                            );
+
+
+                        onlineDot.className =
+                            "online-dot";
+
+
+                        avatar.appendChild(
+                            onlineDot
+                        );
+                    }
+
+
+                    if (friendRow) {
+
+                        let activeLabel =
+                            friendRow.querySelector(
+                                ".mini-active-label"
+                            );
+
+
+                        if (!activeLabel) {
+
+                            const nameLine =
+                                friendRow.querySelector(
+                                    ".dm-name-line"
+                                );
+
+
+                            if (nameLine) {
+
+                                activeLabel =
+                                    document.createElement(
+                                        "span"
+                                    );
+
+
+                                activeLabel.className =
+                                    "mini-active-label";
+
+
+                                activeLabel.textContent =
+                                    "Active";
+
+
+                                nameLine.appendChild(
+                                    activeLabel
+                                );
+                            }
+                        }
+                    }
+
+                }
+                else {
+
+                    if (onlineDot) {
+
+                        onlineDot.remove();
+                    }
+
+
+                    if (friendRow) {
+
+                        const activeLabel =
+                            friendRow.querySelector(
+                                ".mini-active-label"
+                            );
+
+
+                        if (activeLabel) {
+
+                            activeLabel.remove();
+                        }
+                    }
+                }
+
+            }
+            catch (error) {
+
+                console.error(
+                    "Presence refresh error:",
+                    error
+                );
+            }
+        }
+
+
+
+        async function refreshAllFriendPresence() {
+
+            const friendRows =
+                document.querySelectorAll(
+                    ".user-form[data-friend-id]"
+                );
+
+
+            for (const row of friendRows) {
+
+                const friendId =
+                    row.dataset.friendId;
+
+
+                if (friendId) {
+
+                    await refreshFriendPresence(
+                        friendId
+                    );
+                }
+            }
+        }
+
+
+        refreshAllFriendPresence();
+
+
+        setInterval(
+            refreshAllFriendPresence,
+            20000
+        );
+
+
+
+        // =========================================================
+        // TAB VISIBILITY
+        // =========================================================
+
+        document.addEventListener(
+            "visibilitychange",
+            function () {
+
+                if (
+                    document.visibilityState
+                    ===
+                    "visible"
+                ) {
+
+                    sendHeartbeat();
+
+                    refreshAllFriendPresence();
+                }
+
+            }
+        );
+
+    </script>
+
+
+</body>
+
+</html>
